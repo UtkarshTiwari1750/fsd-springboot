@@ -1,5 +1,5 @@
 # ─── 1) Build stage ────────────────────────────────────────────────────────────
-FROM maven:3.9.0-eclipse-temurin-21 AS builder
+FROM maven:3.9.0-eclipse-temurin-17 AS builder
 WORKDIR /workspace
 
 # Copy maven files & download deps (cached until pom.xml changes)
@@ -11,7 +11,7 @@ COPY src ./src
 RUN mvn clean package 
 
 # ─── 2) Runtime stage ─────────────────────────────────────────────────────────
-FROM eclipse-temurin:21-jdk-jammy
+FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the jar from the builder
