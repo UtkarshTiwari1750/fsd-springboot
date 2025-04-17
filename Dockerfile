@@ -8,7 +8,7 @@ RUN mvn dependency:go-offline -B
 
 # Copy in your source & build
 COPY src ./src
-RUN mvn clean package -DskipTests -B
+RUN mvn clean package 
 
 # ─── 2) Runtime stage ─────────────────────────────────────────────────────────
 FROM openjdk:17-jdk-slim
