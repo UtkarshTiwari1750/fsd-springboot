@@ -1,18 +1,21 @@
-# Use a lightweight OpenJDK base image
+# ─── 1) Build stage ────────────────────────────────────────────────────────────
+FROM maven:3.9.0-eclipse-temurin-17 AS builder
+WORKDIR /workspace
+
+# Copy maven files & download deps (cached until pom.xml changes)
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+
+# Copy in your source & build
+COPY src ./src
+RUN mvn clean package -DskipTests -B
+
+# ─── 2) Runtime stage ─────────────────────────────────────────────────────────
 FROM openjdk:17-jdk-slim
-
-# Set environment variables
-ENV APP_NAME=spring-boot-app
-ENV APP_VERSION=1.0.0
-
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the jar file into the container
-COPY target/demo-0.0.1-SNAPSHOT.jar app.jar
+# Copy the jar from the builder
+COPY --from=builder /workspace/target/*.jar app.jar
 
-# Expose the port your Spring Boot app runs on (usually 8080)
 EXPOSE 8080
-
-# Run the jar file
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]
