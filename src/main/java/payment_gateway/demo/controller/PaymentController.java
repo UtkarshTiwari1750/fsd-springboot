@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "https://fsd-angular.vercel.app")
+@CrossOrigin(origins = "https://fsd-angular.vercel.app", allowCredentials = "true")
 @RestController
 @RequestMapping("/payment")
 public class PaymentController {
