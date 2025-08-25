@@ -16,7 +16,7 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Payment> payments = new ArrayList<>();
+    private List<BasePayment> payments = new ArrayList<>();
 
     // Getters and Setters
     public Long getId() {
@@ -43,11 +43,11 @@ public class User {
         this.email = email;
     }
 
-    public List<Payment> getPayments() {
+    public List<BasePayment> getPayments() {
         return payments;
     }
 
-    public void setPayments(List<Payment> payments) {
+    public void setPayments(List<BasePayment> payments) {
         this.payments = payments;
     }
 }
