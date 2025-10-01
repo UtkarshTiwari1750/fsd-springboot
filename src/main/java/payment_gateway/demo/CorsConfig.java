@@ -1,4 +1,4 @@
-package payment_gateway.demo; // adjust to match your package structure
+package payment_gateway.demo;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://fsd-angular.vercel.app")
+                        .allowedOrigins("https://fsd-angular.vercel.app") // Angular app URL
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
